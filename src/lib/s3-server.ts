@@ -1,15 +1,22 @@
 import { S3 } from "@aws-sdk/client-s3";
+import { getS3Url } from "@/lib/s3";
 import fs from "fs";
 export async function downloadFromS3(file_key: string): Promise<string> {
   return new Promise(async (resolve, reject) => {
     try {
       const s3 = new S3({
-        region: "us-east-2",
+        region: "blr1",
+        endpoint: "https://blr1.vultrobjects.com",
         credentials: {
           accessKeyId: process.env.NEXT_PUBLIC_S3_ACCESS_KEY_ID!,
           secretAccessKey: process.env.NEXT_PUBLIC_S3_SECRET_ACCESS_KEY!,
         },
       });
+      console.log("File key being loaded:", file_key);
+
+      const s3Url = getS3Url(file_key);
+      console.log("Generated S3 URL:", s3Url); // Check if this URL works in a browser
+
       const params = {
         Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,
         Key: file_key,

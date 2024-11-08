@@ -7,6 +7,7 @@ export async function uploadToS3(
     try {
       const s3 = new S3({
         region: "blr1",
+        endpoint: "https://blr1.vultrobjects.com",
         credentials: {
           accessKeyId: process.env.NEXT_PUBLIC_S3_ACCESS_KEY_ID!,
           secretAccessKey: process.env.NEXT_PUBLIC_S3_SECRET_ACCESS_KEY!,
@@ -14,7 +15,7 @@ export async function uploadToS3(
       });
 
       const file_key =
-        "uploads/" + Date.now().toString() + file.name.replace(" ", "-");
+        file.name.replace(" ", "-");
 
       const params = {
         Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,
