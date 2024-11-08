@@ -33,5 +33,6 @@ export default defineConfig({
     user: 'vultradmin',
     password: 'AVNS_kmViubNaac7r3rT0yMU',
     port: 16751,
+    ssl: 'require',
   },
 });
