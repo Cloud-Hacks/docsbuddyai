@@ -1,38 +1,47 @@
-import { Configuration, OpenAIApi } from 'openai-edge'
-import { Message, OpenAIStream, StreamingTextResponse } from "ai";
-import { db } from '@/lib/db'
-import { getContext } from '@/lib/context'
+import fetch from 'node-fetch';
+import { db } from '@/lib/db';
+import { getContext } from '@/lib/context';
 import { chats, messages as _messages, userConcerns } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
-export const runtime = 'edge'
+export const runtime = 'edge';
 
-const config = new Configuration({
-    apiKey: process.env.OPENAI_API_KEY
-})
+const VULTR_API_KEY = process.env.VULTR_API_KEY;
+const VULTR_API_BASE_URL = "https://api.vultrinference.com/v1/chat/completions";
 
-const openai = new OpenAIApi(config)
+// Define a basic Message type if not already defined
+interface Message {
+    role: "user" | "system";
+    content: string;
+}
 
 export async function POST(req: Request) {
     try {
-        const { messages, chatId } = await req.json()
+        const { messages, chatId } = await req.json();
         const lastMessage = messages[messages.length - 1];
         const _chats = await db.select().from(chats).where(eq(chats.id, chatId));
 
-        if (_chats.length != 1) {
-            return NextResponse.json({ error: "chat not found" }, { status: 404 });
+        if (_chats.length !== 1) {
+            return NextResponse.json({ error: "Chat not found" }, { status: 404 });
         }
         
+        // Save user message into db
+        await db.insert(_messages).values({
+            chatId,
+            content: lastMessage.content,
+            role: "user",
+        });
+
         // Fetch user concerns
         const _concerns = await db.select().from(userConcerns).where(eq(userConcerns.chatId, chatId));
         const userConcernsList = _concerns.map(c => c.concern).join(", ");
 
-        // get the context based on the user query and the relevant file 
+        // Get the context based on the user query and relevant file
         const fileKey = _chats[0].fileKey;
-        const context = await getContext(lastMessage.content, fileKey)
+        const context = await getContext(lastMessage.content, fileKey);
 
-        // generate the prompt for OAI to use
+        // Generate the prompt for Vultr
         const prompt = {
             role: "system",
             content: `You are an AI assistant specializing in insurance and policy matters. You possess expert knowledge in various types of insurance including health, life, auto, home, and business insurance. Your traits include:
@@ -63,39 +72,54 @@ export async function POST(req: Request) {
             Remember, you're here to assist with insurance-related queries and concerns. Focus on providing valuable, accurate information to help users understand their insurance matters better.`,
         };
 
-        const response = await openai.createChatCompletion({
-            model: "gpt-4o",
-            messages: [
-                prompt,
-                ...messages.filter((message: Message) => message.role === "user"),
-            ],
-            stream: true,
+        // Vultr API request
+        const response = await fetch(VULTR_API_BASE_URL, {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${VULTR_API_KEY}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                model: "llama2-7b-chat-Q5_K_M",
+                messages: [
+                    prompt,
+                    ...messages.filter((message: Message) => message.role === "user"),
+                ],
+                max_tokens: 512,
+                stream: true,
+            }),
         });
 
-        console.log("prompt", prompt)
+        // Stream Vultr response and save AI response to the database
+        const stream = new ReadableStream({
+            async start(controller) {
+                let aiResponse = '';
+                
+                for await (const chunk of response.body as any) {
+                    const textChunk = new TextDecoder().decode(chunk);
+                    aiResponse += textChunk;
+                    controller.enqueue(textChunk);
+                }
 
-        const stream = OpenAIStream(response, {
-            onStart: async () => {
-                // save user message into db
+                // Save the AI response into the database when complete
                 await db.insert(_messages).values({
                     chatId,
-                    content: lastMessage.content,
-                    role: "user",
-                });
-            },
-            onCompletion: async (completion) => {
-                // save ai message into db
-                await db.insert(_messages).values({
-                    chatId,
-                    content: completion,
+                    content: aiResponse,
                     role: "system",
                 });
+
+                controller.close();
             },
+            cancel(reason) {
+                console.error("Stream canceled:", reason);
+            }
         });
 
-        return new StreamingTextResponse(stream);
+        return new Response(stream, {
+            headers: { "Content-Type": "text/event-stream" },
+        });
     } catch (error) {
-        console.error(error)
+        console.error(error);
         return NextResponse.json({ error: "Internal server error" }, { status: 500 });
     }
 }
