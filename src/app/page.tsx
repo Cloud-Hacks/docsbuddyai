@@ -51,6 +51,11 @@ export default async function Home() {
                 Contact
               </NavigationMenuLink>
             </NavigationMenuItem>
+            <NavigationMenuItem>
+              <div className="flex pl-20 ml-10" >
+                <UserButton afterSignOutUrl="/" />
+              </div>
+            </NavigationMenuItem>
           </NavigationMenuList>
           <NavigationMenuIndicator />
           <NavigationMenuViewport />
@@ -59,11 +64,10 @@ export default async function Home() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <div className="flex flex-col items-center text-center">
         <div className="flex mt-0.5 mb-10" >
-           <Image src={"/iconthin.svg"} alt="BillBuddy Logo" width={500} height={500} />
+           <Image src={"/iconthin.svg"} alt="DocsBuddy Logo" width={500} height={500} />
         </div>
           <div className="flex items-center">
             <h2 className="mr-3 text-5xl font-semibold">Healthcare, demystified.</h2>
-            <UserButton afterSignOutUrl="/" />
           </div>
 
           <div className="flex mt-8">
