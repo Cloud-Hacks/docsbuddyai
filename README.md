@@ -4,6 +4,8 @@ DocsBuddy is a powerful tool designed to assist users in managing, searching, an
 ## Why DocsBuddy is Needed
 DocsBuddy addresses several key challenges faced by individuals and organizations in managing, retrieving, and gaining insights from large volumes of documentation and knowledge resources. Here’s why DocsBuddy is needed and the specific problems it solves. e.g. In many fields, documentation, knowledge resources, and records grow rapidly, making it hard for users to find the exact information they need. DocsBuddy’s AI-powered vector search enables semantic searches, understanding the meaning behind a query rather than just matching keywords. This allows users to find relevant information more efficiently, even if they don’t use exact terms, improving search accuracy and relevancy.
 
+![alt text](arch_docsbuddy.png)
+
 # Getting Started
 Follow these steps to set up and run DocsBuddy on your local machine.
 
