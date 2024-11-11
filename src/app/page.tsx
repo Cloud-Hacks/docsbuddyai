@@ -63,8 +63,8 @@ export default async function Home() {
       </div>
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <div className="flex flex-col items-center text-center">
-        <div className="flex mt-0.5 mb-10" >
-           <Image src={"/iconthin.svg"} alt="DocsBuddy Logo" width={500} height={500} />
+        <div className="flex" >
+           <Image src={"/docsbud.svg"} alt="DocsBuddy Logo" width={250} height={200} />
         </div>
           <div className="flex items-center">
             <h2 className="mr-3 text-5xl font-semibold">Knowledge resource, demystified.</h2>
