@@ -1,8 +1,8 @@
 # DocsBuddy
-DocsBuddy is a powerful tool designed to simplify health insurance by using advanced AI technology to analyze and break down complex insurance policies into clear, understandable insights. Users can upload their insurance policy documents and receive instant, accurate answers to any questions about their coverage, deductibles, premiums, and more. DocsBuddy aims to empower individuals to make confident healthcare decisions by providing clarity and peace of mind.
+DocsBuddy is a powerful tool designed to assist users in managing, searching, and processing documentation and knowledge resources through an intelligent and user-friendly interface. Leveraging a robust architecture, DocsBuddy enables efficient document storage, advanced search capabilities, and AI-powered processing to deliver insights quickly and accurately.
 
 ## Why DocsBuddy is Needed
-According to the Center for Health Care Strategies, nearly 9 out of 10 adults in the United States struggle with health literacy. This lack of understanding can lead to confusion and anxiety when dealing with health insurance policies. DocsBuddy addresses this critical need by transforming dense, jargon-filled documents into accessible and actionable information, helping users navigate their health insurance with ease.
+DocsBuddy addresses several key challenges faced by individuals and organizations in managing, retrieving, and gaining insights from large volumes of documentation and knowledge resources. Here’s why DocsBuddy is needed and the specific problems it solves. e.g. In many fields, documentation, knowledge resources, and records grow rapidly, making it hard for users to find the exact information they need. DocsBuddy’s AI-powered vector search enables semantic searches, understanding the meaning behind a query rather than just matching keywords. This allows users to find relevant information more efficiently, even if they don’t use exact terms, improving search accuracy and relevancy.
 
 # Getting Started
 Follow these steps to set up and run DocsBuddy on your local machine.
@@ -27,22 +27,22 @@ NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
 NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/
 NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/
 
-# Database
+#Embedding
+VULTR_API_KEY=
+
+# Vultr Managed Database
 PGHOST=
 PGDATABASE=
 PGUSER=
 PGPASSWORD=
 
-# AWS S3
+# Vultr S3
 NEXT_PUBLIC_S3_ACCESS_KEY_ID=
 NEXT_PUBLIC_S3_SECRET_ACCESS_KEY=
 NEXT_PUBLIC_S3_BUCKET_NAME=
 
 # Pinecone
 PINECONE_API_KEY=
-
-# OpenAI
-OPENAI_API_KEY=
 
 NEXT_BASE_URL=http://localhost:3000
 ```
