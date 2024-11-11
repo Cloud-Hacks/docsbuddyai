@@ -9,12 +9,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 const concernOptions = [
-  { id: 'reduce_my_bill', label: 'Reduce my bill' },
-  { id: 'policy_questions', label: 'Policy questions' },
-  { id: 'add_a_member', label: 'Add a member' },
-  { id: 'calculate_my_bill', label: 'Calculate my bill' },
-  { id: 'find_a_provider', label: 'Find a provider' },
-  { id: 'medication_costs', label: 'Medication costs' },
+  { id: 'improve_my_query', label: 'Improve my query' },
+  { id: 'docs_questions', label: 'Docs questions' },
 ];
 
 type Props = { chatId: number };
