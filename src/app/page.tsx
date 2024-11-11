@@ -67,7 +67,7 @@ export default async function Home() {
            <Image src={"/iconthin.svg"} alt="DocsBuddy Logo" width={500} height={500} />
         </div>
           <div className="flex items-center">
-            <h2 className="mr-3 text-5xl font-semibold">Healthcare, demystified.</h2>
+            <h2 className="mr-3 text-5xl font-semibold">Knowledge resource, demystified.</h2>
           </div>
 
           <div className="flex mt-8">
@@ -91,7 +91,7 @@ export default async function Home() {
           </div>
 
           <p className="max-w-xl mt-1 text-lg text-slate-600">
-            Quickly gain insights and answer questions about your healthcare plan with the power of AI
+            Quickly gain insights and answer questions about your documentation and related resources with the power of AI
           </p>
 
           <div className="w-full mt-4">
