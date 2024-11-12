@@ -1,18 +1,12 @@
-import { drizzle } from "drizzle-orm/postgres-js"; // Use postgres-js adapter for postgres library
+import { neon, neonConfig } from "@neondatabase/serverless";
+import { drizzle } from "drizzle-orm/neon-http";
 
-const postgres = require('postgres');
+neonConfig.fetchConnectionCache = true;
 
+if (!process.env.DATABASE_URL) {
+  throw new Error("database url not found");
+}
 
-const { PGHOST, PGDATABASE, PGUSER, PGPASSWORD } = process.env;
+const sql = neon(process.env.DATABASE_URL);
 
-const sql = postgres({
-  host: PGHOST,
-  database: PGDATABASE,
-  username: PGUSER,
-  password: PGPASSWORD,
-  port: 16751,
-  ssl: 'require',
-});
-
-// Initialize drizzle with the postgres instance
 export const db = drizzle(sql);
