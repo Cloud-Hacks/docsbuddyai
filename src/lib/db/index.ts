@@ -2,9 +2,6 @@ import { drizzle } from "drizzle-orm/postgres-js"; // Use postgres-js adapter fo
 
 const postgres = require('postgres');
 
-/* if (!process.env.DATABASE_URL) {
-  throw new Error("DATABASE_URL not found");
-} */
 
 const { PGHOST, PGDATABASE, PGUSER, PGPASSWORD } = process.env;
 
