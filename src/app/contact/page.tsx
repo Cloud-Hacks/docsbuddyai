@@ -1,3 +1,4 @@
+import { UserButton } from "@clerk/nextjs";
 import {
     NavigationMenu,
     NavigationMenuContent,
@@ -12,28 +13,31 @@ import {
   const ContactPage = () => {
     return (
       <div className="w-screen min-h-screen bg-gradient-to-r from-blue-100 to-yellow-100 flex flex-col items-center">
-        <div className="flex justify-center items-center w-full h-16 bg-black">
-          <NavigationMenu>
-            <NavigationMenuList className="flex space-x-4 text-white">
-              <NavigationMenuItem>
-                <NavigationMenuLink href="/" className="hover:text-gray-400 p-2">
-                  Home
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuLink href="/about" className="hover:text-gray-400 p-2">
-                  About
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuLink href="/contact" className="hover:text-gray-400 p-2">
-                  Contact
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-            <NavigationMenuIndicator />
-            <NavigationMenuViewport />
-          </NavigationMenu>
+        <div className="flex justify-between items-center w-full h-16 bg-black px-4">
+          <div className="flex-grow flex justify-center">
+            <NavigationMenu>
+              <NavigationMenuList className="flex space-x-4 text-white">
+                <NavigationMenuItem>
+                  <NavigationMenuLink href="/" className="hover:text-gray-400 p-2">
+                    Home
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <NavigationMenuLink href="/about" className="hover:text-gray-400 p-2">
+                    About
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <NavigationMenuLink href="/contact" className="hover:text-gray-400 p-2">
+                    Contact
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+              <NavigationMenuIndicator />
+              <NavigationMenuViewport />
+            </NavigationMenu>
+          </div>
+          <UserButton afterSignOutUrl="/" />
         </div>
   
         <div className="max-w-4xl mt-8 p-6 bg-white rounded-lg shadow-lg">
