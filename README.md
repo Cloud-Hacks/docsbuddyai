@@ -10,11 +10,11 @@ DocsBuddy addresses several key challenges faced by individuals and organization
 Follow these steps to set up and run DocsBuddy on your local machine.
 
 1. Clone the Repository
-Clone the realtime-analyser repository from GitHub to your local machine.
+Clone the docsbuddyai repository from GitHub to your local machine.
 
 ```bash
-git clone https://github.com/Cloud-Hacks/realtime-analyser.git
-cd realtime-analyser
+git clone https://github.com/Cloud-Hacks/docsbuddyai.git
+cd docsbuddyai
 ```
 
 2. Create a .env File

@@ -42,7 +42,7 @@ import {
             If you have any questions or need further assistance, please visit our GitHub repository and add an issue. We are always here to help!
           </p>
           <div className="text-center mt-4">
-            <a href="https://github.com/Cloud-Hacks/realtime-analyser" target="_blank" rel="noopener noreferrer" className="text-blue-500 underline text-lg">
+            <a href="https://github.com/Cloud-Hacks/docsbuddyai" target="_blank" rel="noopener noreferrer" className="text-blue-500 underline text-lg">
               Visit our GitHub Repository
             </a>
           </div>
